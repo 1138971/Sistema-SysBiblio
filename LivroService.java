@@ -33,7 +33,7 @@ public class LivroService {
     }
 
 
-    public List<Livro> pesquisar(String titulo) {
+    public List<Livro> pesquisarPorTitulo(String titulo) {
         List<Livro> livrosEncontrados = new ArrayList<>();
         titulo = titulo.toUpperCase();
 
@@ -41,9 +41,34 @@ public class LivroService {
             if (livro.getTitulo().contains(titulo))
                 livrosEncontrados.add(livro);
         }
+
         return livrosEncontrados;
     }
 
+        public List<Livro> pesquisarPorAutor(String autor) {
+        List<Livro> livrosEncontrados = new ArrayList<>();
+        autor = autor.toUpperCase();
+
+        for (Livro livro : acervo) {
+            if (livro.getAutor().toUpperCase().contains(autor))
+                livrosEncontrados.add(livro);
+        }
+
+        return livrosEncontrados;
+    }
+
+    public List<Livro> pesquisarPorAno(int ano) {
+        List<Livro> livrosEncontrados = new ArrayList<>();
+
+        for (Livro livro : acervo) {
+            if (livro.getAnoPublicacao() == ano)
+                livrosEncontrados.add(livro);
+        }
+
+        return livrosEncontrados;
+    }
+
+    
     public void remover(int indice) throws Exception {
     if (indice < 0 || indice >= acervo.size()){
             throw new Exception("Índice inválido!");
