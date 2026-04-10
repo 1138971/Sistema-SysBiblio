@@ -11,6 +11,7 @@ void main() {
             1 - Cadastrar Livro
             2 - Listar Livros
             3 - Pesquisar Livro
+            4 - Remover Livro
             0 - Sair
             """;
 
@@ -23,6 +24,7 @@ void main() {
                 case 1 -> cadastrar();
                 case 2 -> listar();
                 case 3 -> pesquisar();
+                case 4 -> remover(); 
                 case 0 -> IO.println("Até breve!!!");
                 default -> IO.println("Opção Inválida");
             }
@@ -61,6 +63,22 @@ void pesquisar() {
     List<Livro> livros = service.pesquisar(pesquisa);
 
     imprimirLista(livros);
+}
+
+void remover() throws Exception {
+
+    List<Livro> livros = service.listar();
+    if (livros.isEmpty()) {
+        IO.println("Nenhum livro cadastrado!");
+        return;
+    }
+    imprimirLista(livros);
+
+    int opcao = Input.scanInt("Digite o número do livro que deseja remover: ");
+
+    service.remover(opcao - 1);
+
+    IO.println("Livro removido com sucesso!");
 }
 
 void imprimirLista(List<Livro> livros) {
