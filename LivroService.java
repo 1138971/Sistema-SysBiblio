@@ -52,5 +52,12 @@ public class LivroService {
         return livrosEncontrados;
     }
 
+        public void remover(int indice) throws Exception {
+        if (indice < 0 || indice >= acervo.size()){
+            throw new Exception("Índice inválido!");
+        }
+        acervo.remove(indice);
+        }
+    
 }
 
