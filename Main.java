@@ -12,6 +12,7 @@ void main() {
             2 - Listar Livros
             3 - Pesquisar Livro
             4 - Remover Livro
+            5 - Editar Livro
             0 - Sair
             """;
 
@@ -24,7 +25,8 @@ void main() {
                 case 1 -> cadastrar();
                 case 2 -> listar();
                 case 3 -> pesquisar();
-                case 4 -> remover(); 
+                case 4 -> remover();
+                case 5 -> editar();
                 case 0 -> IO.println("Até breve!!!");
                 default -> IO.println("Opção Inválida");
             }
@@ -79,6 +81,33 @@ void remover() throws Exception {
     service.remover(opcao - 1);
 
     IO.println("Livro removido com sucesso!");
+}
+
+void editar() throws Exception {
+
+    List<Livro> livros = service.listar();
+
+    if (livros.isEmpty()) {
+        IO.println("Nenhum livro cadastrado!");
+        return;
+    }
+
+    imprimirLista(livros);
+
+    int opcao = Input.scanInt("Digite o número do livro que deseja editar: ");
+
+    int indice = opcao - 1;
+
+    String titulo = Input.scanString("Novo título: ");
+    String autor = Input.scanString("Novo autor: ");
+    int anoPublicacao = Input.scanInt("Novo ano de publicação: ");
+    int numeroPaginas = Input.scanInt("Novo número de páginas: ");
+
+    Livro livroAtualizado = new Livro(titulo, autor, anoPublicacao, numeroPaginas);
+
+    service.editar(indice, livroAtualizado);
+
+    IO.println("Livro atualizado com sucesso!");
 }
 
 void imprimirLista(List<Livro> livros) {
