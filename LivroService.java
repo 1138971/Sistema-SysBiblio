@@ -10,14 +10,11 @@ public class LivroService {
 
         if (novoLivro == null)
             throw new Exception("Objeto Nulo");
-        //Estou validando o Título
+
         if (novoLivro.getTitulo() == null || novoLivro.getTitulo().isEmpty())
             throw new Exception("Título inválido!!!");
-        //Estou formatando o Título
+
         novoLivro.setTitulo(novoLivro.getTitulo().trim().toUpperCase());
-
-        //TODO fazer mesma validação e formatação para Autor
-
 
         if (novoLivro.getAnoPublicacao() < 1900
                 || novoLivro.getAnoPublicacao() > LocalDate.now().getYear())
@@ -28,14 +25,9 @@ public class LivroService {
                     && livro.getAnoPublicacao() == novoLivro.getAnoPublicacao())
                 throw new Exception("Já existe livro cadastrado com este Título, Autor e Ano de publicação");
         }
-
-        //Nesta parte estaria chamando a camada Repository
-
-        // Neste exemplo não usaremos Repositórios
         acervo.add(novoLivro);
 
     }
-
     public List<Livro> listar() {
         return acervo;
     }
@@ -52,12 +44,49 @@ public class LivroService {
         return livrosEncontrados;
     }
 
-        public void remover(int indice) throws Exception {
-        if (indice < 0 || indice >= acervo.size()){
+    public void remover(int indice) throws Exception {
+    if (indice < 0 || indice >= acervo.size()){
             throw new Exception("Índice inválido!");
         }
-        acervo.remove(indice);
+    acervo.remove(indice);
+    }
+
+    public void editar(int indice, Livro livroAtualizado) throws Exception {
+
+    if (indice < 0 || indice >= acervo.size()) {
+        throw new Exception("Índice inválido!");
+    }
+
+    if (livroAtualizado == null)
+        throw new Exception("Objeto Nulo");
+
+
+    if (livroAtualizado.getTitulo() == null || livroAtualizado.getTitulo().isEmpty())
+        throw new Exception("Título inválido!!!");
+
+    livroAtualizado.setTitulo(livroAtualizado.getTitulo().trim().toUpperCase());
+
+
+    if (livroAtualizado.getAnoPublicacao() < 1900
+            || livroAtualizado.getAnoPublicacao() > LocalDate.now().getYear())
+        throw new Exception("Ano de publicação inválido");
+
+
+    for (int i = 0; i < acervo.size(); i++) {
+        if (i == indice) continue;
+
+        Livro livro = acervo.get(i);
+
+        if (livro.getTitulo().equalsIgnoreCase(livroAtualizado.getTitulo())
+                && livro.getAutor().equalsIgnoreCase(livroAtualizado.getAutor())
+                && livro.getAnoPublicacao() == livroAtualizado.getAnoPublicacao()) {
+
+            throw new Exception("Já existe livro com esses dados");
         }
+    }
+
+    acervo.set(indice, livroAtualizado);
+}
     
 }
 
