@@ -2,6 +2,8 @@
 
 
 
-Nome: Júlio Vinicius Tasca Mendes              RA: 1138971
+Nome: Júlio Vinicius Tasca Mendes              
+
+RA: 1138971
 
 
