@@ -13,6 +13,7 @@ void main() {
             3 - Pesquisar Livro
             4 - Remover Livro
             5 - Editar Livro
+            6 - Ordenar Livros
             0 - Sair
             """;
 
@@ -27,6 +28,7 @@ void main() {
                 case 3 -> pesquisar();
                 case 4 -> remover();
                 case 5 -> editar();
+                case 6 -> ordenar();
                 case 0 -> IO.println("Até breve!!!");
                 default -> IO.println("Opção Inválida");
             }
@@ -119,7 +121,31 @@ void imprimirLista(List<Livro> livros) {
     int i = 1;
     for (Livro livro : livros) {
         IO.println(i++  + " - " + livro);
-        //IO.println(i++  + " - " + livro.toString());
     }
 }
 
+void ordenar() {
+
+    String menu = """
+            --- Ordenação de Livros ---
+            1 - Ordenar por título
+            2 - Ordenar por ano de publicação
+            """;
+
+    IO.println(menu);
+
+    int opcao = Input.scanInt("Escolha uma opção: ");
+
+    List<Livro> livros = new ArrayList<>();
+
+    switch (opcao) {
+        case 1 -> livros = service.ordenarPorTitulo();
+        case 2 -> livros = service.ordenarPorAno();
+        default -> {
+            IO.println("Opção inválida!");
+            return;
+        }
+    }
+
+    imprimirLista(livros);
+}
