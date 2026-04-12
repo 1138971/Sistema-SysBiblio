@@ -109,7 +109,29 @@ public class LivroService {
             throw new Exception("Já existe livro com esses dados");
         }
     }
+    public List<Livro> ordenarPorTitulo() {
 
+    List<Livro> listaOrdenada = new ArrayList<>(acervo);
+
+    listaOrdenada.sort((l1, l2) -> 
+        l1.getTitulo().compareToIgnoreCase(l2.getTitulo())
+    );
+
+    return listaOrdenada;
+    }
+
+    public List<Livro> ordenarPorAno() {
+
+    List<Livro> listaOrdenada = new ArrayList<>(acervo);
+
+    listaOrdenada.sort((l1, l2) -> 
+        Integer.compare(l1.getAnoPublicacao(), l2.getAnoPublicacao())
+    );
+
+    return listaOrdenada;
+
+    }
+        
     acervo.set(indice, livroAtualizado);
 }
     
